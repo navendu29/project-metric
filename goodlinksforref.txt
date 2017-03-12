@@ -1,0 +1,2 @@
+http://sonarqube-archive.15.x6.nabble.com/Calculation-of-Response-For-Class-metric-td5000313.html
+http://staff.unak.is/andy/StaticAnalysis0809/metrics/overview.html

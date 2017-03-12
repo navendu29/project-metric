@@ -1,0 +1,36 @@
+class a{
+int x;
+int y;
+int fun1()
+{}
+protected:
+void fun()
+{}
+
+int u=9;
+
+public:
+int z;
+int k;
+int l=5;
+char y='c';
+float h;
+void set()
+{
+if(x>y && u<p)
+
+int y=math.max();
+int x=5;}
+
+void get()
+{
+if (p>l)
+{}
+else if()
+{}
+while()
+{}
+for(;x<y;)
+{}
+}
+}
