@@ -1,0 +1,4 @@
+calculates size metric of a c++ program 
+finds-NOA
+     -NOM
+     -WMC
