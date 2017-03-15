@@ -1,9 +1,14 @@
-
-
 class Vertex:
     def __init__(self,name):
         self.name = name
         self.edges = [];
+        self.private=[]
+        self.privateattr=[]
+        self.protected=[]
+        self.protectedattr=[]
+        self.public=[]
+        self.publicattr=[]
+        
     def display(self):
         print (self.name)
         print (self.edges)
@@ -58,21 +63,142 @@ class graph:
         return -1
     def noofchild(self,name):
         v=self.getvertex(name)
-        print(v.noofchildren())
+        print("no of child ",v.noofchildren())
 
 
 
+#e2=graph()
+#e2.addvertex("n")
+#e2.addvertex("m")
+
+#e2.addvertex("p")
+#e2.addvertex("q")
+
+#e2.addedge("n","m")
+#e2.addedge("n","p")
+
+#e2.addedge("p","q")
+#e2.DIT("q")
+#e2.noofchild("n")
+
+
+def calculateattributes(storage,t,name,keywords):
+    flag="false"
+    file= open("read.txt","r")
+    file.seek(t,0)
+    v=e2.getvertex(name)
+    while True :
+        line=file.readline()
+        if not line :
+            break
+        l=line.rstrip()
+        if l:
+            if("protected:" in l):
+                flag="protected"
+                continue
+            if("public:" in l):
+                flag="public"
+                continue
+            if('{'in l):
+                storage.append('{')
+            if('}' in l):
+                storage.pop()
+            if (len(storage)==0):
+                cur=file.tell()
+                return (cur)
+            if("(" in l and ")" in l):
+                l=l.replace("(","")
+                l=l.replace(")","")
+                l=l.replace("{","")
+                for item in keywords :
+                    if(item in l):
+                        l=l.replace(item,"")
+                r=l.split()
+                if(flag=="false"):
+                    v.private.append(r[0]+"()")
+                elif(flag=="protected"):
+                    v.protected.append(r[0]+"()")
+                else:
+                    v.public.append(r[0]+"()")
+            if (len(storage)==1 and '('  not in l and ')'  not in l and ";"in l):       
+                  list=l.split()
+                  length=len(list)
+                  u=length-1
+                  for item in keywords :
+                      if(item in list[0]):
+                          if(';' in list[u]):
+                              l=l.replace(";","")
+                              l=l.replace(item,"")
+                  r=l.split()
+                  if(flag=="false"):
+                      v.privateattr.append(r[0])
+                  elif(flag=="protected"):
+                      v.protectedattr.append(r[0])
+                  else:
+                      v.publicattr.append(r[0])
+                              
+                            
+             
+
+             
+
+
+file= open("read.txt","r")
+storage=[]
+count=0
 e2=graph()
-e2.addvertex("n")
-e2.addvertex("m")
-
-e2.addvertex("p")
-e2.addvertex("q")
-
-e2.addedge("n","m")
-e2.addedge("n","p")
-
-e2.addedge("p","q")
-e2.DIT("n")
-e2.noofchild("n")
+keywords=['int','char','bool','float','void']
+while True :
+        line=file.readline()
+        if not line :
+            break
+        l=line.rstrip()
+        if l:
+            list=l.split()
+            length=len(list)
+            length=length-1
+            if(list[0]=="class"):
+                if('{' in list[length]):
+                    storage.append('{')
+                    l=l.replace("{","")
+                l=l.replace("class","")
+                l=l.replace(":","")
+                l=l.replace("public","")
+                l=l.replace("protected","")
+                l=l.replace("private","")
+                l=l.replace(",","")
+                cl=l.split()
+                t=file.tell()
+                u=len(cl)
+                i=0
+               
+                for x in cl:
+                    e2.addvertex(x)
+                    keywords.append(x)
+                for i in range(0,u-1):
+                    e2.getvertex(cl[i+1]).edges.append(e2.getvertex(cl[0]))
+                    
+                    
+                #e2.display()
+                #print(keywords)
+                cur=calculateattributes(storage,t,cl[0],keywords)
+                file.seek(cur,0)
 #e2.display()
+e2.DIT("b")
+e2.noofchild("a")
+v=e2.getvertex("a")
+print("total classes",len(e2.vertices))
+print("NOM",len(v.private)+len(v.protected)+len(v.public))
+print("NOA",len(v.privateattr)+len(v.protectedattr)+len(v.publicattr))
+
+for v in e2.vertices:
+    print(v.name)
+    for e in v.edges:
+        print(e.name)
+    print(v.private)
+    print(v.protected)
+    print(v.public)
+    print(v.privateattr)
+    print(v.protectedattr)
+    print(v.publicattr)
+    

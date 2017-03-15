@@ -1,0 +1,48 @@
+class a{
+int x;
+int y;
+void fun3(int x,int y)
+{
+
+}
+void fun1(){
+
+
+}
+
+void fun2()
+{
+
+}
+protected:
+int k;
+int p;
+void fun5(){
+}
+
+public:
+int y;
+void fun6(){
+}
+
+
+
+}
+class b:public a{
+
+void fun4(){
+}
+
+public:
+void fun9()
+{}
+
+
+}
+class c :private a{
+
+void fun8()
+{}
+
+
+}

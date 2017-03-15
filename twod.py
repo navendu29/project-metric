@@ -11,3 +11,4 @@ x=['a','b','c']
    
 print('b'in x)
 
+m=map()
