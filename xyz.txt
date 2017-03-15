@@ -34,3 +34,14 @@ for(;x<y;)
 {}
 }
 }
+class b{
+
+public :
+int x;
+
+void set()
+{}
+
+
+
+}

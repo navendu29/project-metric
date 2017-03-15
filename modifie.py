@@ -47,7 +47,7 @@ def calculateattributes(storage,t):
                     if(lis[0]==item):
                             method=method+1
                             if('{' in l):
-                                storage1.append('{')
+                                storage1.append('{')#inline functions
                             pos=file.tell();    
                             complexity=complexity+cyclomaticcomplexity(pos,storage1)
             if('{'in l):
