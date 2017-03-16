@@ -2,6 +2,7 @@ class Vertex:
     def __init__(self,name):
         self.name = name
         self.edges = [];
+        self.parent=[]
         self.private=[]
         self.privateattr=[]
         self.protected=[]
@@ -52,7 +53,7 @@ class graph:
     def DIT(self,name):
         for v in self.vertices:
             print("DIT is",self.DIT2(v,name,0))
-            break
+            
     def DIT2(self,v,name,k):
         if(v.name==name):
             return k
@@ -64,7 +65,21 @@ class graph:
     def noofchild(self,name):
         v=self.getvertex(name)
         print("no of child ",v.noofchildren())
-
+    def inheritedmethod(self,name):
+        v=self.getvertex(name)
+        inherit=0
+        for p in v.parent :
+            m=p.split()
+            inherit=inherit+len(self.getvertex(m[1]).public)+len(self.getvertex(m[1]).protected)
+        return inherit
+    def inheriteattri(self,name):
+        v=self.getvertex(name)
+        inherit=0
+        for p in v.parent :
+            m=p.split()
+            inherit=inherit+len(self.getvertex(m[1]).publicattr)+len(self.getvertex(m[1]).protectedattr)
+        return inherit
+            
 
 
 #e2=graph()
@@ -146,6 +161,7 @@ def calculateattributes(storage,t,name,keywords):
 file= open("read.txt","r")
 storage=[]
 count=0
+flag=[]
 e2=graph()
 keywords=['int','char','bool','float','void']
 while True :
@@ -161,6 +177,12 @@ while True :
                 if('{' in list[length]):
                     storage.append('{')
                     l=l.replace("{","")
+                    
+                if(":" in l):
+                    s=l.replace(":",",")
+                    m=s.split(",")
+                    print(m)
+                    
                 l=l.replace("class","")
                 l=l.replace(":","")
                 l=l.replace("public","")
@@ -177,6 +199,7 @@ while True :
                     keywords.append(x)
                 for i in range(0,u-1):
                     e2.getvertex(cl[i+1]).edges.append(e2.getvertex(cl[0]))
+                    e2.getvertex(cl[0]).parent.append(m[i+1])
                     
                     
                 #e2.display()
@@ -184,7 +207,11 @@ while True :
                 cur=calculateattributes(storage,t,cl[0],keywords)
                 file.seek(cur,0)
 #e2.display()
-e2.DIT("b")
+
+
+
+                
+e2.DIT("d")
 e2.noofchild("a")
 v=e2.getvertex("a")
 print("total classes",len(e2.vertices))
@@ -201,4 +228,15 @@ for v in e2.vertices:
     print(v.privateattr)
     print(v.protectedattr)
     print(v.publicattr)
-    
+    print(v.parent)
+#h=e2.getvertex("b")
+v=e2.getvertex("a")
+print("NOM of a",len(v.protected)+len(v.public))
+print("NOA of a",len(v.protectedattr)+len(v.publicattr))
+
+v1=e2.getvertex("b")
+print("NOM of b",len(v1.protected)+len(v1.public))
+print("NOA of b",len(v1.protectedattr)+len(v1.publicattr))
+
+print("inherited methods in c",e2.inheritedmethod("c"))  
+print("inherited attributes in c",e2.inheriteattri("c")) 

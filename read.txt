@@ -39,10 +39,12 @@ void fun9()
 
 
 }
-class c :private a{
+class c :private a,public b{
 
 void fun8()
 {}
 
 
+}
+class d:public a,public b{
 }

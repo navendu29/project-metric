@@ -12,63 +12,73 @@
 
             #r=p.split()
             #print(r)
+file= open("test.txt","r")
+while True :
+    line=file.readline()
+    if not line :
+        break
+    l=line.rstrip()
+    if l:
+        s=l.replace(":",",")
+        m=s.split(",")
+        
+        print(m)
 
-
-def calpub(storage,st,t):
-    file= open("read.txt","r")
-    file.seek(t,0)
-    while True :
-        cur=file.tell()
-        line=file.readline()
-        if not line :
-            break
-        l=line.rstrip()
-        if l:
+#def calpub(storage,st,t):
+ #   file= open("read.txt","r")
+  #  file.seek(t,0)
+   # while True :
+   #     cur=file.tell()
+    #    line=file.readline()
+     #   if not line :
+      #      break
+       # l=line.rstrip()
+        #if l:
             
-            if ('(' in l and ')' in l):
-                    l=l.replace("(","")
-                    l=l.replace(")","")
-                    for item in keywords :
-                        if(item in l):
-                            l=l.replace(item,"")
-                            r=l.split()
-                            v.st.append(r[0]+"()"))
+         #   if ('(' in l and ')' in l):
+          #          l=l.replace("(","")
+           #         l=l.replace(")","")
+           #         for item in keywords :
+            #            if(item in l):
+             #               l=l.replace(item,"")
+              #              r=l.split()
+               #             v.st.append(r[0]+"()"))
 
-            if('{'in l):
-                storage.append('{')
-            if('}' in l):
-                storage.pop()
-            if (len(storage)==0||"public:"in l):
-                return (cur)
+            #if('{'in l):
+             #   storage.append('{')
+            #if('}' in l):
+             #   storage.pop()
+            #if (len(storage)==0||"public:"in l):
+             #   return (cur)
 
          
 
-keywords=["int","char","bool",'float',"void"]
-file= open("read.txt","r")
-while True :
-        line=file.readline()
-        if not line :
-            break
-        l=line.rstrip()
-        if l:
-            if "public:" in l:
-                t=file.tell()
-                cur=calpub(storage,"public",t)
-                file.seek(cur,0)
+#keywords=["int","char","bool",'float',"void"]
+#file= open("read.txt","r")
+#while True :
+ #       line=file.readline()
+  #      if not line :
+   #         break
+    #    l=line.rstrip()
+     #   if l:
+      #      if "public:" in l:
+       #         t=file.tell()
+        #        cur=calpub(storage,"public",t)
+         #       file.seek(cur,0)
              
-            else if "protected:" in l:
-                t=file.tell()
-                cur=calpub(storage,"protected",t)
-                file.seek(cur,0)   
-            else:
-                if ('(' in l and ')' in l):
-                    l=l.replace("(","")
-                    l=l.replace(")","")
-                    for item in keywords :
-                        if(item in l):
-                            l=l.replace(item,"")
-                            r=l.split()
-                            v.private.append(r[0]+"()")
+          #  else if "protected:" in l:
+           #     t=file.tell()
+            #    cur=calpub(storage,"protected",t)
+             #   file.seek(cur,0)   
+            #else:
+             #   if ('(' in l and ')' in l):
+              #      l=l.replace("(","")
+               #     l=l.replace(")","")
+                #    for item in keywords :
+                 #       if(item in l):
+                  #          l=l.replace(item,"")
+                   #         r=l.split()
+                    #        v.private.append(r[0]+"()")
 
                         
                         
